@@ -2,13 +2,13 @@
 
 ## Overview
 
-YouTube Video Sorter is a Chrome extension designed to help users categorize and filter videos on YouTube pages. It's particularly useful for channels with diverse content, allowing users to easily sort videos into custom categories based on keywords.
+YouTube Video Sorter is a Chrome extension designed to help users categorize and filter videos on YouTube channel pages. It integrates seamlessly with YouTube's existing UI, adding custom sorting options based on user-defined categories and keywords.
 
 ## Features
 
-- Create custom categories with associated keywords
-- Automatically categorize videos on YouTube pages
-- Filter videos by category with on-page buttons
+- Create and manage custom categories with associated keywords directly on YouTube pages
+- Add custom sorting options to YouTube's existing sort menu
+- Filter videos by category directly from the YouTube interface
 - Persistent storage of categories across browser sessions
 
 ## Installation
@@ -20,28 +20,29 @@ YouTube Video Sorter is a Chrome extension designed to help users categorize and
 
 ## Usage
 
-1. Navigate to a YouTube channel or search results page.
-2. Click the YouTube Video Sorter icon in your Chrome toolbar to open the popup.
-3. Add categories and associated keywords:
-   - Enter a category name (e.g., "Conan's Late Show")
-   - Enter keywords separated by commas (e.g., "late show, monologue, guest interview")
-   - Click "Add Category"
-4. Click "Apply Sorting" to categorize the videos on the current page.
-5. Use the filter buttons that appear on the YouTube page to show/hide videos by category.
+1. Navigate to a YouTube channel page.
+2. Click the "Sort by" button to open the sort menu.
+3. Select "Manage Categories" from the menu options.
+4. In the category manager overlay:
+   - Add new categories by entering a name and comma-separated keywords
+   - View existing categories and their keywords
+   - Delete categories you no longer need
+5. Close the category manager by clicking "Manage Categories" again.
+6. Use your custom categories from the "Sort by" menu to filter videos.
+7. Select a category to sort the videos. Videos matching the category will be shown first, while others will be hidden.
+8. Use the "Reset Custom Sort" option to return to the original video order.
 
 ## File Structure
 
 - `manifest.json`: Chrome extension manifest file
-- `popup.html`: HTML for the extension popup
-- `popup.js`: JavaScript for popup functionality
-- `content.js`: Content script that runs on YouTube pages
+- `content.js`: Content script that integrates with YouTube's UI and manages categories
 - `background.js`: Background script for the extension
 
 ## Development
 
 To modify or extend the extension:
 
-1. Edit the relevant files (`popup.html`, `popup.js`, `content.js`, etc.).
+1. Edit the relevant files (`content.js`, `manifest.json`, etc.).
 2. Save your changes.
 3. Go to `chrome://extensions/` in Chrome.
 4. Find the YouTube Video Sorter extension and click the refresh icon.
@@ -49,9 +50,10 @@ To modify or extend the extension:
 ## Future Improvements
 
 - Implement regex-based rules for more precise video matching
-- Add sorting options within categories (by date, views, etc.)
-- Create a more advanced user interface for managing categories and rules
-- Support auto-categorization for dynamically loaded videos (infinite scroll)
+- Add options to customize the sorting behavior (e.g., hide non-matching videos vs. show them last)
+- Support for sorting on search results pages
+- Add ability to edit existing categories
+- Improve the UI of the category manager
 
 ## Contributing
 

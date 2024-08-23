@@ -3,13 +3,8 @@
   "name": "YouTube Video Sorter",
   "version": "1.0",
   "description": "Sort and categorize YouTube videos based on custom rules",
-  "permissions": [
-    "activeTab",
-    "storage"
-  ],
-  "action": {
-    "default_popup": "popup.html"
-  },
+  "permissions": ["storage"],
+  "host_permissions": ["*://www.youtube.com/*"],
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/*"],
