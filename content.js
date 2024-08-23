@@ -7,23 +7,18 @@ chrome.storage.sync.get("categories", (data) => {
   console.log("YouTube Video Sorter: Fetched categories from storage", data);
   if (data.categories) {
     categories = data.categories;
+    attemptAddCustomSortingOptions();
+  } else {
+    console.log("YouTube Video Sorter: No categories found in storage");
+    // Add some default categories for testing
+    categories = {
+      Interviews: ["interview", "guest"],
+      Sketches: ["sketch", "comedy"],
+      Monologues: ["monologue", "opening"],
+    };
+    saveCategories();
   }
 });
-
-function findSortContainer() {
-  console.log("YouTube Video Sorter: Searching for sort container");
-
-  const container = document.querySelector(
-    "ytd-feed-filter-chip-bar-renderer #chips"
-  );
-  if (container) {
-    console.log("YouTube Video Sorter: Found sort container", container);
-    return container;
-  }
-
-  console.log("YouTube Video Sorter: Sort container not found");
-  return null;
-}
 
 function createChipElement(text, onClick) {
   const chip = document.createElement("yt-chip-cloud-chip-renderer");
@@ -43,14 +38,19 @@ function createChipElement(text, onClick) {
   formattedString.textContent = text;
 
   chip.appendChild(formattedString);
-  chip.addEventListener("click", onClick);
+  chip.addEventListener("click", (e) => {
+    e.preventDefault();
+    onClick();
+  });
 
   return chip;
 }
 
 function addCustomSortingOptions() {
   console.log("YouTube Video Sorter: Attempting to add custom sorting options");
-  const sortContainer = findSortContainer();
+  const sortContainer = document.querySelector(
+    "ytd-feed-filter-chip-bar-renderer #chips"
+  );
   if (!sortContainer) {
     console.log("YouTube Video Sorter: Sort container not found");
     return false;
@@ -85,21 +85,30 @@ function addCustomSortingOptions() {
 
 function sortVideos(category) {
   console.log(`YouTube Video Sorter: Sorting videos by category: ${category}`);
-  // Implementation remains the same
-  // You'll need to implement this based on how you want to sort the videos
+  // Implement sorting logic here
+  // For now, let's just log the action
+  alert(`Sorting by ${category}. This feature is not yet implemented.`);
 }
 
 function showCategoryManager() {
   console.log("YouTube Video Sorter: Showing category manager");
-  // Implementation remains the same
-  // You'll need to implement this to show your category management UI
+  // Implement category management UI here
+  // For now, let's just log the action
+  alert("Category management feature is not yet implemented.");
 }
 
 function saveCategories() {
   console.log("YouTube Video Sorter: Saving categories", categories);
   chrome.storage.sync.set({ categories: categories }, () => {
-    console.log("YouTube Video Sorter: Categories saved successfully");
-    addCustomSortingOptions();
+    if (chrome.runtime.lastError) {
+      console.error(
+        "YouTube Video Sorter: Error saving categories",
+        chrome.runtime.lastError
+      );
+    } else {
+      console.log("YouTube Video Sorter: Categories saved successfully");
+      attemptAddCustomSortingOptions();
+    }
   });
 }
 
@@ -116,12 +125,6 @@ function attemptAddCustomSortingOptions() {
     );
   }
 }
-
-// Initial call
-console.log(
-  "YouTube Video Sorter: Initial attempt to add custom sorting options"
-);
-attemptAddCustomSortingOptions();
 
 // Listen for URL changes and significant DOM changes
 let lastUrl = location.href;
