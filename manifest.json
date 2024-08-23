@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Video Sorter",
+  "version": "1.0",
+  "description": "Sort and categorize YouTube videos based on custom rules",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
